@@ -126,14 +126,10 @@ static slurm_prometheus_conf_t prometheus_conf;
 static uint32_t g_profile_running = ACCT_GATHER_PROFILE_NOT_SET;
 static stepd_step_rec_t *g_job = NULL;
 
-static char *datastr = NULL;
-static int datastrlen = 0;
-
 static table_t *tables = NULL;
 static size_t tables_max_len = 0;
 static size_t tables_cur_len = 0;
 
-static FILE *fptr;
 
 
 
@@ -216,8 +212,13 @@ static int _delete_data()
 	long response_code;
 	static int error_cnt = 0;
 	char *url = NULL;
+	// FILE *fptr;
+
+	// fptr = fopen("/metrics/data.txt", "w");
 
 	debug3("%s %s called", plugin_type, __func__);
+
+	// fprintf(fptr, "Inside delete_dataasdasdsadasdasdasdasdqwe12312312wdadfdsdadasdafzxcasd13353123123211");
 
 	DEF_TIMERS;
 	START_TIMER;
@@ -234,10 +235,14 @@ static int _delete_data()
 
 	xstrfmtcat(url, "%s/metrics/job/%d/instance/%s", prometheus_conf.host, g_job->jobid, g_job->node_name);
 
+
 	curl_easy_setopt(curl_handle, CURLOPT_URL, url);
 	curl_easy_setopt(curl_handle, CURLOPT_CUSTOMREQUEST, "DELETE");
 	curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, _write_callback);
 	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *) &chunk);
+
+	// fprintf(fptr, "Inside delete_data2");
+
 
 	if ((res = curl_easy_perform(curl_handle)) != CURLE_OK) {
 		if ((error_cnt++ % 100) == 0)
@@ -390,8 +395,7 @@ extern int init(void)
 	if (!_run_in_daemon())
 		return SLURM_SUCCESS;
 
-	datastr = xmalloc(BUF_SIZE);
-	fptr = fopen("/metrics/data.txt", "wb");
+	// datastr = xmalloc(BUF_SIZE);
 	return SLURM_SUCCESS;
 }
 
@@ -400,9 +404,8 @@ extern int fini(void)
 	debug3("%s %s called", plugin_type, __func__);
 
 	_free_tables();
-	xfree(datastr);
+	// xfree(datastr);
 	xfree(prometheus_conf.host);
-	fclose(fptr);
 	return SLURM_SUCCESS;
 }
 
@@ -522,8 +525,11 @@ extern int acct_gather_profile_p_task_end(pid_t taskpid)
 {
 	debug3("%s %s called", plugin_type, __func__);
 
-	_send_data(NULL);
+	// _send_data(NULL);
+	// fprintf(fptr, "Task end - after _send_data(NULL)");
 	_delete_data();
+	// fprintf(fptr, "Task end - after _delete_data()");
+
 	return SLURM_SUCCESS;
 }
 
