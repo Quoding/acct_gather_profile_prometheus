@@ -4,7 +4,7 @@ A profiling plugin for Slurm which sends the data to the Prometheus Pushgateway
 
 ## How it works
 
-![alt text](https://docs.google.com/drawings/d/e/2PACX-1vTfNbhKJjLL1YRm1IJ0J_Ga5k9mFkeEKUUMnppC3NiA6SsKUVtQ7HKFR-9aosTzhuKdPQmt9yUYP9wr/pub?w=1440&h=1080 "Prometheus Plugin Diagram")
+![alt text](https://docs.google.com/drawings/d/e/2PACX-1vTfNbhKJjLL1YRm1IJ0J_Ga5k9mFkeEKUUMnppC3NiA6SsKUVtQ7HKFR-9aosTzhuKdPQmt9yUYP9wr/pub?w=1315&h=704 "Prometheus Plugin Diagram")
 
 Due to Prometheus' pull architecture, a Slurm job, because of its ephemereal
 nature, has to push data somewhere. In comes the Prometheus Pushgateway which
