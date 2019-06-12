@@ -212,13 +212,8 @@ static int _delete_data()
 	long response_code;
 	static int error_cnt = 0;
 	char *url = NULL;
-	// FILE *fptr;
-
-	// fptr = fopen("/metrics/data.txt", "w");
 
 	debug3("%s %s called", plugin_type, __func__);
-
-	// fprintf(fptr, "Inside delete_dataasdasdsadasdasdasdasdqwe12312312wdadfdsdadasdafzxcasd13353123123211");
 
 	DEF_TIMERS;
 	START_TIMER;
@@ -241,7 +236,6 @@ static int _delete_data()
 	curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, _write_callback);
 	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *) &chunk);
 
-	// fprintf(fptr, "Inside delete_data2");
 
 
 	if ((res = curl_easy_perform(curl_handle)) != CURLE_OK) {
@@ -526,9 +520,7 @@ extern int acct_gather_profile_p_task_end(pid_t taskpid)
 	debug3("%s %s called", plugin_type, __func__);
 
 	// _send_data(NULL);
-	// fprintf(fptr, "Task end - after _send_data(NULL)");
 	_delete_data();
-	// fprintf(fptr, "Task end - after _delete_data()");
 
 	return SLURM_SUCCESS;
 }
