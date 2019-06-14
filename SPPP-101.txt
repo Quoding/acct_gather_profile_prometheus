@@ -59,9 +59,9 @@ compiler le plugin.
 6 - Ouvrir src/plugins/acct_gather_profile/Makefile.am
 7 - À coté de "none" ajouter "prometheus"
 8 - Sauvegarder et quitter
-9 - Faire une copie du répertoire src/plugins/acct_gather_profile_none et renommer
-    cette copie ainsi que le .c à l'intérieur acct_gather_profile_$NOMDUPLUGIN
-10 - Ouvrir le fichier src/plugins/acct_gather_profile_$NOMDUPLUGIN/Makefile.am
+9 - Faire une copie du répertoire src/plugins/acct_gather_profile/none et renommer
+    cette copie ainsi que le .c à l'intérieur par le nom du plugin.
+10 - Ouvrir le fichier src/plugins/acct_gather_profile/$NOMDUPLUGIN/Makefile.am
 11 - Changer tous les "none" par $NOMDUPLUGIN
 12 - Retourner à la racine du projet et appeler ./autogen.sh
 
@@ -74,12 +74,6 @@ au Makefile.am des autres plugins4)
 Votre plugin compilé se trouvera dans le répertoire .libs dans le répertoire de votre plugin
 - il vous suffit de le copier dans le répertoire de librairies de votre installation
 Slurm.(/opt/software/slurm/lib64/slurm/, par exemple)
-
-Il se peut qu'il soit également pertinent de modifier votre Epilog Slurm afin qu'il gère 
-certains cas particuliers (comme la suppression de certaines données en cas de scancel ou
-d'abort), puisque la fonction appelée à la fin de la tâche à l'intérieur du plugin ne sera
-appelé dans ces cas-là.
-
 
 Sources :
 https://slurm.schedmd.com/hdf5_profile_user_guide.html
