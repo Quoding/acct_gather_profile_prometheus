@@ -2,6 +2,11 @@
 ## Description
 A profiling plugin for Slurm which sends the data to the Prometheus Pushgateway
 
+## Dependencies
+- libcurl-devel
+
+`sudo yum install libcurl-devel`
+
 ## How to activate it
 
 Once you got the acct_gather_profile_prometheus.so file. Put it into Slurm's lib64 folder
