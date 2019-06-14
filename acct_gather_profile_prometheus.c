@@ -230,18 +230,20 @@ static int _delete_data()
 
 	xstrfmtcat(url, "%s/metrics/job/%d/instance/%s", prometheus_conf.host, g_job->jobid, g_job->node_name);
 
+    chunk.message = xmalloc(1);
+	chunk.size = 0;
 
 	curl_easy_setopt(curl_handle, CURLOPT_URL, url);
 	curl_easy_setopt(curl_handle, CURLOPT_CUSTOMREQUEST, "DELETE");
 	curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, _write_callback);
 	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *) &chunk);
 
-
+    // res = curl_easy_perform(curl_handle);
 
 	if ((res = curl_easy_perform(curl_handle)) != CURLE_OK) {
 		if ((error_cnt++ % 100) == 0)
-			error("%s %s: curl_easy_perform failed to send data (discarded). Reason: %s",
-			      plugin_type, __func__, curl_easy_strerror(res));
+        debug3("%s %s: curl_easy_perform failed to send data (discarded). Reason: %s",
+                plugin_type, __func__, curl_easy_strerror(res));
 		rc = SLURM_ERROR;
 		goto cleanup;
 	}
@@ -272,11 +274,14 @@ static int _delete_data()
 	}
 
 cleanup:
+    debug3("In cleanup");
 	xfree(chunk.message);
 	xfree(url);
 cleanup_easy_init:
+    debug3("In cleanup_easy_init");
 	curl_easy_cleanup(curl_handle);
 cleanup_global_init:
+    debug3("In cleanup_global_init");
 	curl_global_cleanup();
 
 	END_TIMER;
@@ -294,7 +299,7 @@ static int _send_data(const char *data)
 	CURL *curl_handle = NULL;
 	CURLcode res;
 	struct http_response chunk;
-	int rc = SLURM_SUCCESS;
+    	int rc = SLURM_SUCCESS;
 	long response_code;
 	static int error_cnt = 0;
 	char *url = NULL;
@@ -329,9 +334,9 @@ static int _send_data(const char *data)
 
 
 	if ((res = curl_easy_perform(curl_handle)) != CURLE_OK) {
-		if ((error_cnt++ % 100) == 0)
-			error("%s %s: curl_easy_perform failed to send data (discarded). Reason: %s",
-				plugin_type, __func__, curl_easy_strerror(res));
+		// if ((error_cnt++ % 100) == 0)
+        debug3("%s %s: curl_easy_perform failed to send data (discarded). Reason: %s",
+            plugin_type, __func__, curl_easy_strerror(res));
 		rc = SLURM_ERROR;
 		goto cleanup;
 	}
@@ -362,11 +367,14 @@ static int _send_data(const char *data)
 	}
 
 cleanup:
+    debug3("In cleanup");
 	xfree(chunk.message);
 	xfree(url);
 cleanup_easy_init:
+    debug3("In cleanup_easy_init");
 	curl_easy_cleanup(curl_handle);
 cleanup_global_init:
+    debug3("In cleanup_global_init");
 	curl_global_cleanup();
 
 	END_TIMER;
