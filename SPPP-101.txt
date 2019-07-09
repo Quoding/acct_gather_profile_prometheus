@@ -54,7 +54,7 @@ compiler le plugin.
 1 - Ouvrir `configure.ac` à la racine du projet
 2 - Chercher acct_gather_profile/none
 3 - Copier/coller cette ligne une fois
-4 - Change le none dans cette nouvelle ligne par prometheus
+4 - Changer le none dans cette nouvelle ligne par prometheus
 5 - Sauvegarder et quitter
 6 - Ouvrir src/plugins/acct_gather_profile/Makefile.am
 7 - À coté de "none" ajouter "prometheus"
@@ -69,7 +69,7 @@ N'oubliez pas d'appeler le configure avant le make.
 
 Si vous utilisez des librairies qui ont besoin d'être liées, n'oubliez pas de le faire
 dans le Makefile.am du répertoire de votre plugin. (Il peut être utile de se réferer
-au Makefile.am des autres plugins4)
+au Makefile.am des autres plugins)
 
 Votre plugin compilé se trouvera dans le répertoire .libs dans le répertoire de votre plugin
 - il vous suffit de le copier dans le répertoire de librairies de votre installation
