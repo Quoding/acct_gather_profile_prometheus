@@ -1,7 +1,5 @@
 /*****************************************************************************\
- *  acct_gather_profile_Prometheus
-.c - slurm accounting plugin for Prometheus
-
+ *  acct_gather_profile_Prometheus.c - slurm accounting plugin for Prometheus
  *				     profiling.
  *****************************************************************************
  *  Author: Carlos Fenoy Garcia
@@ -237,8 +235,6 @@ static int _delete_data()
 	curl_easy_setopt(curl_handle, CURLOPT_CUSTOMREQUEST, "DELETE");
 	curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, _write_callback);
 	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *) &chunk);
-
-    // res = curl_easy_perform(curl_handle);
 
 	if ((res = curl_easy_perform(curl_handle)) != CURLE_OK) {
 		if ((error_cnt++ % 100) == 0)
